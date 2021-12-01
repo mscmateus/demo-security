@@ -32,7 +32,7 @@ public class UsuarioService implements UserDetailsService{
 	private Datatables datatables;
 	
 	@Transactional(readOnly = true)
-	private Usuario buscarPorEmail(String email) {
+	public Usuario buscarPorEmail(String email) {
 		return repository.findByEmail(email);
 	}
 
