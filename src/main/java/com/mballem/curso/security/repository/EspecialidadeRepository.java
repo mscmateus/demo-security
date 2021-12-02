@@ -1,5 +1,7 @@
 package com.mballem.curso.security.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +13,9 @@ public interface EspecialidadeRepository extends JpaRepository<Especialidade, Lo
 
 	@Query("select e from Especialidade e where e.titulo like :search%")
 	Page<Especialidade> findAllByTitulo(String search, Pageable pageable);
+
+	@Query("select e.titulo from Especialidade e where e.titulo like :termo%")
+	List<String> findEspecialidadesByTermo(String termo);
 
 	
 }

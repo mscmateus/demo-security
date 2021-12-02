@@ -26,7 +26,11 @@ public class MedicoController {
 	
 	
 	@GetMapping("/dados")
-	public String abrirPorMedico(Medico medico, ModelMap model) {
+	public String abrirPorMedico(Medico medico, ModelMap model, @AuthenticationPrincipal User user) {
+		if(medico.hasNotId()) {
+			medico = service.buscarPorEmail(user.getUsername());
+			model.addAttribute("medico", medico);
+		}
 		return "medico/cadastro";
 	}
 	
@@ -38,7 +42,7 @@ public class MedicoController {
 		}
 		service.salvar(medico);
 		attr.addFlashAttribute("sucesso", "Operação realizada com sucesso.");
-		attr.addFlashAttribute("medico", medico);
+		attr.addFlashAttribute("medico", medico); 
 		return "redirect:/medicos/dados";
 	}
 	
