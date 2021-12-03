@@ -55,7 +55,7 @@ public class EspecialidadeService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<String> buscarEspecialidadesByTermo(String termo) {
+	public List<String> buscarEspecialidadesPorTermo(String termo) {
 		return repository.findEspecialidadesByTermo(termo);
 	}
 
