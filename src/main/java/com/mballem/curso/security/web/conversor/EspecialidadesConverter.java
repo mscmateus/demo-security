@@ -23,6 +23,6 @@ public class EspecialidadesConverter implements Converter<String[], Set<Especial
 			especialidades.addAll(service.buscarPorTitulos(titulos));
 		}
 		return especialidades;
-	}
+	} 
 
 }

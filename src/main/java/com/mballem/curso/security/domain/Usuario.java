@@ -36,11 +36,11 @@ public class Usuario extends AbstractEntity {
 	public Usuario() {
 		super();
 	}
-
+	
 	public Usuario(Long id) {
 		super.setId(id);
 	}
-
+	
 	// adiciona perfis a lista
 	public void addPerfil(PerfilTipo tipo) {
 		if (this.perfis == null) {
@@ -48,7 +48,7 @@ public class Usuario extends AbstractEntity {
 		}
 		this.perfis.add(new Perfil(tipo.getCod()));
 	}
-
+	
 	public Usuario(String email) {
 		this.email = email;
 	}
