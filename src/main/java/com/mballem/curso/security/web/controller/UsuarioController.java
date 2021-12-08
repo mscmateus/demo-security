@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -119,12 +120,33 @@ public class UsuarioController {
 		}
 		Usuario u = service.buscarPorEmail(user.getUsername());
 		if(!UsuarioService.isSenhaCorreta(s3, u.getSenha())) {
-			attr.addFlashAttribute("falha","Senha atual não conferem, tente novamente");
+			attr.addFlashAttribute("falha","Senha atual não  conferem, tente novamente");
 			return "redirect:/u/editar/senha";
 		}
 		service.alterarSenha(u,s1);
 		attr.addFlashAttribute("sucesso","Senha alterada com sucesso.");
 		return "redirect:/u/editar/senha";
+	}
+	
+	@GetMapping("/novo/cadastro")
+	public String novoCadastro(Usuario usuario) {
+		return "cadastrar-se";
+	}
+	
+	@GetMapping("/cadastro/realizado")
+	public String cadastroRealizado() {
+		return "fragments/mensagem";
+	}
+	
+	@PostMapping("/cadastro/paciente/salvar")
+	public String salvarCadastroPaciente(Usuario usuario, BindingResult result) {
+		try {
+			service.salvarCadastroPaciente(usuario);
+		} catch (DataIntegrityViolationException ex) {
+			result.reject("email", "Ops... Este e-mail já existe na base de dados.");
+			return "cadastrar-se";
+		}
+		return "redirect:/u/cadastro/realizado";
 	}
 	
 }
