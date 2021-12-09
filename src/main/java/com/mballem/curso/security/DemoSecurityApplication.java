@@ -8,17 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.mballem.curso.security.service.EmailService;
 
 @SpringBootApplication
-public class DemoSecurityApplication implements CommandLineRunner{
+public class DemoSecurityApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoSecurityApplication.class, args);
-	}
-	
-	@Autowired
-	EmailService service;
-	
-	@Override
-	public void run(String... args) throws Exception {
-		service.enviarPedidoDeConfirmacaoDeCadastro("msc.mateussc@gmail.com", "9852pol");
 	}
 }
